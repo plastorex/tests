@@ -15,6 +15,11 @@ public class Task1Test {
     public void Task1Test(){
         DriverFactory driverFactory = new DriverFactory();
         WebDriver webDriver = driverFactory.initDriver();
+
+        //Navigate to webpage
         webDriver.get("https://www.onet.pl/");
+
+        //cleanup
+        webDriver.quit();
     }
 }
