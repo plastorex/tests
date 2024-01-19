@@ -3,9 +3,9 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="E:/ITExercises/tests">
         <classes>
-            <class name="com.gitlab.rmarzec.task.Task3Test">
+            <class name="com.gitlab.rmarzec.task.Task4Test">
                 <methods>
-                    <include name="Task3Test"/>
+                    <include name="Task4Test"/>
                 </methods>
             </class>
 

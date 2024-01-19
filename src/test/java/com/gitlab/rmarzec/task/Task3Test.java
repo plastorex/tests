@@ -2,15 +2,16 @@ package com.gitlab.rmarzec.task;
 
 import com.gitlab.rmarzec.framework.utils.DriverFactory;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.junit.Assert;
-
 import java.time.Duration;
+import java.util.ArrayList;
+
 
 public class Task3Test {
 
@@ -30,66 +31,59 @@ public class Task3Test {
         webDriver.quit();
     }
 
-    void waitForLoad(WebDriver driver) {
-        wait.until((ExpectedCondition<Boolean>) wd ->
-                ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
-    }
-
     @Test
-    public void Task3Test(){
+    public void Task3Test() {
         String testURL = "https://www.google.com/";
         String expectedURL = "https://www.w3schools.com/tags/tag_select.asp";
+        String selectOption = "Opel";
 
-        //Execution of test
+        //cookies handling on google
         webDriver.get(testURL);
-        waitForLoad(webDriver);
-
-        WebElement cookiesPopUp = webDriver.findElement(By.id("CXQnmb"));
-        if (cookiesPopUp.isDisplayed()) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("L2AGLb"))).click();
+        WebElement cookiesPopUp1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("CXQnmb")));
+        if (cookiesPopUp1.isDisplayed()) {
+            cookiesPopUp1.findElement(By.id("L2AGLb")).click();
         }
 
         //steps for lucky search
         WebElement searchBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@class = 'gLFyf']")));
         searchBox.sendKeys("HTML select tag - W3Schools");
-
-        WebElement inputSuggestionButtonsDiv = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='lJ9FBc']")));
-        WebElement feelingLuckyButton = inputSuggestionButtonsDiv.findElement(By.xpath("//input[@class='RNmpXc']"));
+        WebElement searchSuggestionBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='lJ9FBc']")));
+        WebElement feelingLuckyButton = searchSuggestionBox.findElement(By.xpath("//input[@class='RNmpXc']"));
         feelingLuckyButton.click();
 
-        //Assertion
-                Assert.assertEquals(expectedURL, webDriver.getCurrentUrl());
+        //assertion
+        Assert.assertEquals(expectedURL, webDriver.getCurrentUrl());
 
-        if (!webDriver.getCurrentUrl().equals("https://www.w3schools.com/tags/tag_select.asp")) {
+        if (!webDriver.getCurrentUrl().equals(expectedURL)) {
             System.out.println("Current site URL: " + webDriver.getCurrentUrl());
-            webDriver.get("https://www.w3schools.com/tags/tag_select.asp");
-            waitForLoad(webDriver);
+            webDriver.get(expectedURL);
         }
 
-
-        try {
-            WebElement w3schoolsCookieBanner = webDriver.findElement(By.id("accept-choices"));
-            if (w3schoolsCookieBanner.isDisplayed()) {
-                w3schoolsCookieBanner.click();
-            }
-        }
-        catch (NoSuchElementException e){
-            e.printStackTrace();
+        //cookies handling on w3schoools
+        WebElement cookiesPopUp2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='sn-inner']")));
+        if (cookiesPopUp2.isDisplayed()) {
+            webDriver.findElement(By.id("accept-choices")).click();
         }
 
-
-                WebElement tryItButton = webDriver.findElement(By.xpath("//a[text()='Try it Yourself »']"));
+        //further steps
+        WebElement tryItButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Try it Yourself »']")));
         tryItButton.click();
-        waitForLoad(webDriver);
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("iframeResult"));
+        ArrayList<String> tabs = new ArrayList<String>(webDriver.getWindowHandles());
+        webDriver.switchTo().window(tabs.get(1));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@id='runbtn']")));
+        WebElement frameElement = webDriver.findElement(By.id("iframeResult"));
+        webDriver.switchTo().frame(frameElement);
 
+        //header steps
+        WebElement header = webDriver.findElement(By.xpath("//h1[text()='The select element']"));
+        System.out.println("Header: " + header.getText());
 
-                WebElement headerElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()='The select element']")));
-
-        webDriver.switchTo().defaultContent();
-
-
-
-
+        //select element steps
+        WebElement selectElement = webDriver.findElement(By.xpath("//select[@id='cars']"));
+        Select select = new Select(selectElement);
+        select.selectByVisibleText(selectOption);
+        WebElement selectedOption = select.getFirstSelectedOption();
+        System.out.println("Selected element's text: " + selectedOption.getText());
+        System.out.println("Selected element's value: " + selectedOption.getAttribute("value"));
     }
 }
