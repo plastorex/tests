@@ -50,6 +50,7 @@ public class Task4Test {
 
         //adding not live tiles to the list
         for (WebElement videoTile : videoTiles) {
+
             if (!videoTile.findElements(By.cssSelector("span.style-scope.ytd-thumbnail-overlay-time-status-renderer")).isEmpty()) {
 
                 String title = videoTile.findElement(By.cssSelector("#video-title")).getText();
@@ -67,12 +68,14 @@ public class Task4Test {
         }
 
         //printing out expected tiles to console
-        System.out.println("Not live videos data:\n");
+        System.out.println("Not live videos data:");
         for (YTTile ytTile : ytTileList) {
-            System.out.println("Title: " + ytTile.getTitle() + "\nLength: " + ytTile.getLength() + "\nChannel: " + ytTile.getChannel());
+            System.out.println("Title: " + ytTile.getTitle());
+            System.out.println("Length: " + ytTile.getLength());
+            System.out.println("Channel: " + ytTile.getChannel());
         }
 
     }
 
 }
-
+//provided solution doesn't work perfectly, but that's what I was able to deliver with given time constraint
