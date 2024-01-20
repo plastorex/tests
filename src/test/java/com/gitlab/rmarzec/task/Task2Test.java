@@ -44,13 +44,14 @@ public class Task2Test {
         WebElement languagesList = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'row uls-language-list uls-lcd']")));
         List<WebElement> languages = languagesList.findElements(By.xpath("//a[contains(@class, 'autonym')]"));
         System.out.println("List of available languages:");
-        List<String> noDuplicateLanguages = new ArrayList<>();
+        List<String> duplicateLanguages = new ArrayList<>();
 
         for (WebElement language : languages) {
             String languageName = language.getText();
 
-            if (!noDuplicateLanguages.contains(languageName)) {
-                noDuplicateLanguages.add(languageName);
+            if (!duplicateLanguages.contains(languageName)) {
+                duplicateLanguages.add(languageName);
+                
                 //English language case handling
                 if (languageName.equalsIgnoreCase("english")) {
                     String languageUrl = language.getAttribute("href");
