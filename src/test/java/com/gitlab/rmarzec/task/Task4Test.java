@@ -37,6 +37,7 @@ public class Task4Test {
 
         //cookies handling on youtube
         webDriver.get("https://www.youtube.com/");
+        webDriver.manage().window().maximize();
         WebElement cookiePopUp = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tp-yt-paper-dialog[@id='dialog']")));
         if (cookiePopUp.isDisplayed()) {
             WebElement acceptCookiesButton = cookiePopUp.findElement(By.xpath("//span[text()='Accept all']"));
