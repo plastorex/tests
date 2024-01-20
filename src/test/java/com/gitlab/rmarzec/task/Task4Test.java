@@ -65,7 +65,6 @@ public class Task4Test {
                 ytTile.setLength(length);
                 ytTileList.add(ytTile);
             }
-
         }
 
         //printing out expected tiles to console
@@ -75,8 +74,6 @@ public class Task4Test {
             System.out.println("Length: " + ytTile.getLength().trim());
             System.out.println("Channel: " + ytTile.getChannel() + '\n');
         }
-
     }
-
 }
 
