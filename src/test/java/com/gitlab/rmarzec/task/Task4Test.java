@@ -72,7 +72,7 @@ public class Task4Test {
         System.out.println("Not live videos data:");
         for (YTTile ytTile : ytTileList) {
             System.out.println("Title: " + ytTile.getTitle());
-            System.out.println("Length: " + ytTile.getLength());
+            System.out.println("Length: " + ytTile.getLength().trim());
             System.out.println("Channel: " + ytTile.getChannel() + '\n');
         }
 

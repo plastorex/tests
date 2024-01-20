@@ -51,7 +51,7 @@ public class Task2Test {
 
             if (!duplicateLanguages.contains(languageName)) {
                 duplicateLanguages.add(languageName);
-                
+
                 //English language case handling
                 if (languageName.equalsIgnoreCase("english")) {
                     String languageUrl = language.getAttribute("href");
