@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,18 +42,22 @@ public class Task2Test {
         WebElement languageButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("p-lang-btn")));
         languageButton.click();
         WebElement languagesList = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'row uls-language-list uls-lcd']")));
-        List<WebElement> languages = languagesList.findElements(By.xpath(".//a[contains(@class, 'autonym')]"));
+        List<WebElement> languages = languagesList.findElements(By.xpath("//a[contains(@class, 'autonym')]"));
         System.out.println("List of available languages:");
+        List<String> noDuplicateLanguages = new ArrayList<>();
 
         for (WebElement language : languages) {
             String languageName = language.getText();
 
-            //English language case handling
-            if (languageName.equalsIgnoreCase("english")) {
-                String languageUrl = language.getAttribute("href");
-                System.out.println(languageName + " - " + languageUrl);
-            } else
-                System.out.println(languageName);
+            if (!noDuplicateLanguages.contains(languageName)) {
+                noDuplicateLanguages.add(languageName);
+                //English language case handling
+                if (languageName.equalsIgnoreCase("english")) {
+                    String languageUrl = language.getAttribute("href");
+                    System.out.println(languageName + " - " + languageUrl);
+                } else
+                    System.out.println(languageName);
+            }
         }
     }
 }
