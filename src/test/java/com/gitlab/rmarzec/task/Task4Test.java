@@ -46,8 +46,8 @@ public class Task4Test {
         }
         wait.until(ExpectedConditions.invisibilityOf(cookiePopUp));
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("span.style-scope.ytd-thumbnail-overlay-time-status-renderer")));
-        List<WebElement> videoTiles = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.xpath("(//ytd-rich-grid-media[@class='style-scope ytd-rich-item-renderer'])[position() <= 12]")));
+        List<WebElement> videoTiles = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                By.xpath("(//div[@id='content' and @class='style-scope ytd-rich-item-renderer'])[position() <= 12]")));
 
         //adding not live tiles to the list
         for (WebElement videoTile : videoTiles) {
@@ -55,7 +55,7 @@ public class Task4Test {
             if (!videoTile.findElements(By.cssSelector("span.style-scope.ytd-thumbnail-overlay-time-status-renderer")).isEmpty()) {
 
                 String title = videoTile.findElement(By.cssSelector("#video-title")).getText();
-                String channel = videoTile.findElement(By.cssSelector("#text > a")).getText();
+                String channel = videoTile.findElement(By.cssSelector("yt-formatted-string#text")).getText();
                 String length = videoTile.findElement(By.cssSelector("span.style-scope.ytd-thumbnail-overlay-time-status-renderer"))
                         .getAttribute("innerHTML");
 
@@ -73,10 +73,10 @@ public class Task4Test {
         for (YTTile ytTile : ytTileList) {
             System.out.println("Title: " + ytTile.getTitle());
             System.out.println("Length: " + ytTile.getLength());
-            System.out.println("Channel: " + ytTile.getChannel());
+            System.out.println("Channel: " + ytTile.getChannel() + '\n');
         }
 
     }
 
 }
-//provided solution doesn't work perfectly, but that's what I was able to deliver with given time constraint
+

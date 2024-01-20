@@ -3,13 +3,11 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="E:/ITExercises/tests">
         <classes>
-            <class name="com.gitlab.rmarzec.task.Task4Test">
+            <class name="com.gitlab.rmarzec.task.Task1Test">
                 <methods>
-                    <include name="Task4Test"/>
+                    <include name="Task1Test"/>
                 </methods>
             </class>
-
-            <!--
             <class name="com.gitlab.rmarzec.task.Task2Test">
                 <methods>
                     <include name="Task2Test"/>
@@ -25,7 +23,7 @@
                     <include name="Task4Test"/>
                 </methods>
             </class>
-            -->
+
         </classes>
     </test>
 </suite>
