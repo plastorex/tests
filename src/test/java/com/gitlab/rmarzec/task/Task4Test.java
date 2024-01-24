@@ -45,22 +45,22 @@ public class Task4Test {
             js.executeScript("arguments[0].click();", acceptCookiesButton);
         }
         wait.until(ExpectedConditions.invisibilityOf(cookiePopUp));
-        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("span.style-scope.ytd-thumbnail-overlay-time-status-renderer")));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//span[@id='text' and @class='style-scope ytd-thumbnail-overlay-time-status-renderer']")));
         List<WebElement> videoTiles = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                 By.xpath("(//div[@id='content' and @class='style-scope ytd-rich-item-renderer'])[position() <= 12]")));
 
         //adding not live tiles to the list
         for (WebElement videoTile : videoTiles) {
 
-            if (!videoTile.findElements(By.cssSelector("span.style-scope.ytd-thumbnail-overlay-time-status-renderer")).isEmpty()) {
+            if (!videoTile.findElements(By.xpath(".//span[@id='text' and @class='style-scope ytd-thumbnail-overlay-time-status-renderer']")).isEmpty()) {
 
                 String title = videoTile.findElement(By.cssSelector("#video-title")).getText();
                 String channel = videoTile.findElement(By.cssSelector("yt-formatted-string#text")).getText();
-                String length = videoTile.findElement(By.cssSelector("span.style-scope.ytd-thumbnail-overlay-time-status-renderer"))
+                String length = videoTile.findElement(By.xpath(".//span[@id='text' and @class='style-scope ytd-thumbnail-overlay-time-status-renderer']"))
                         .getAttribute("innerHTML");
 
                 YTTile ytTile = new YTTile();
-                                ytTile.setTitle(title);
+                ytTile.setTitle(title);
                 ytTile.setChannel(channel);
                 ytTile.setLength(length);
                 ytTileList.add(ytTile);
